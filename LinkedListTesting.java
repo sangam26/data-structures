@@ -28,10 +28,7 @@ public class LinkedListTesting {
 		aList.remove();
 		assertEquals(3, (int) aList.get(0)); 
 		
-		aList.add(5);
-		aList.add(6);
-		aList.remove();
-		assertEquals(5, (int) aList.get(1)); 
+		//test for empty list 
 		emptyList.remove();
 	}
 	
@@ -50,10 +47,11 @@ public class LinkedListTesting {
 		assertEquals(6, (int) aList.get(1)); 
 		assertEquals(7, (int) aList.get(2)); 
 		
+		//out of bound indexes 
 		aList.addAt(1, -3);
 		aList.addAt(1, 9);
 		
-		
+		//adding at the front of the list 
 		aList.addAt(0, 0);
 		assertEquals(0, (int) aList.get(0)); 
 	}
@@ -142,7 +140,7 @@ public class LinkedListTesting {
 	@Test
 	public void isSame(){
 		//test if two lists of same size contain same elements 
-		assertEquals(true,aList.isSame(aList, aList2));
+		assertEquals(true,aList.isSameSecondHalf(aList, aList2));
 	}
 	
 	@Test 
@@ -152,23 +150,32 @@ public class LinkedListTesting {
 		//false case, even size
 		aList.add(3);
 		aList.add(5);
-		assertEquals(false, aList.isPalindrome()); 
+		assertEquals(false, aList.isPalindromeWithBuffer()); 
 		
 		//false case, odd size
 		aList.add(6); 
-		assertEquals(false, aList.isPalindrome()); 
+		assertEquals(false, aList.isPalindromeWithBuffer()); 
 		aList.remove();
 		
 		//true case, odd size
-		//assertEquals(true, aList.isPalindrome()); 
+		aList.remove();
+		assertEquals(true, aList.isPalindromeWithBuffer()); 
 		
 		//true case, even size
 		aList.remove();
 		aList.add(2);
 		aList.add(3);
 		aList.size(); 
-		assertEquals(true, aList.isPalindrome()); 
+		assertEquals(true, aList.isPalindromeWithBuffer()); 
+		
+		//for 1 element in the list 
+		aList.remove();
+		aList.remove();
+		aList.remove();
+		assertEquals(true, aList.isPalindromeWithBuffer()); 
 	}
+	
+	
 
 
 	
