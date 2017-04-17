@@ -174,4 +174,12 @@ public class LinkedListTesting {
 		aList.remove();
 		assertEquals(true, aList.isPalindromeWithBuffer()); 
 	}
+	
+	@Test 
+	public void isPalindromeWithoutBuffer(){
+		
+		aList.add(2);
+		aList.add(2);
+		assertEquals(false, aList.isPalindromeWithoutBuffer());
+	}
 }

@@ -97,25 +97,24 @@ public class LinkedList <E> implements Iterable<E>  {
 		Node<E> curr, nextNode, secondHead, pre;
 		pre = head; 
 		int counter = 0; 
-		if(size()>1){
-			curr = head.next; 
-			nextNode = head.next.next; 
+		int size = size(); 
+		if(size>1){
+			curr = head.next;  
 		}else{
 			//1 or empty element, so return always true. 
 			return true; 
 		}
 		
 		//locate index from where to reverse; reverse the second half of the list 
- 		if(size()%2==0){
+ 		if(size%2==0){
  			//move all pointers to the second half of the list. curr pointer is pointing 
  			//to the first node in the second half of the list. 
  			 
- 			if(size()>2){
+ 			if(size>2){
  				//for even size with more than 2 elements. Base case 4 elements.
- 				while(counter != middle){
+ 				while(counter != middle-1){
  					pre = pre.next; 
- 					curr = curr.next; 
- 					nextNode = nextNode.next; 
+ 					curr = curr.next;  
  					counter++; 
  				}
  				pre.next = null; 
@@ -124,23 +123,26 @@ public class LinkedList <E> implements Iterable<E>  {
  				
  			}else{
  				//for even size, with 2 elements. Just compare if the two elements is the same. 
- 				if(curr.data == nextNode.data){
+ 				if(pre.data == curr.data){
  					return true; 
  				}else{
  					return false; 
  				}
  			}
 		}else{
-			//for odd size. Base case is 3 elements. 
-			while(counter != middle + 1){
+			//for odd size, for 3 elements, just compare first and last one. 
+			if(pre.data==curr.next.data){
+				return true; 
+			}else{
+				while(counter != middle){
 					pre = pre.next; 
 					curr = curr.next; 
-					nextNode = nextNode.next; 
 					counter++; 
 				}
 			pre.next = null; 
 			
 			secondHead = this.reverseFrom(curr);
+			}
 		}
  		//go through list and compare the two halves. 
  		if(isSame(head, secondHead)){
@@ -153,8 +155,9 @@ public class LinkedList <E> implements Iterable<E>  {
 	private Node<E> reverseFrom(Node<E> aNode){
 		//take a Node pointer and reverse the list from the given node. return 
 		//head node of the reversed list. 
-		Node<E> pre, curr, nextNode, headSecondHalf; 
-		 headSecondHalf = new Node(null);
+		Node<E> pre, curr, nextNode, headSecondHalf;
+		headSecondHalf = null; 
+		 
 		pre = null; 
 		
 		if(size()<=1){
@@ -171,7 +174,7 @@ public class LinkedList <E> implements Iterable<E>  {
 				nextNode = nextNode.next; 
 			}
 			//relink last node 
-			headSecondHalf.next = curr; 
+			headSecondHalf = curr; 
 			curr.next = pre; 
 		}
 		
@@ -215,12 +218,12 @@ public class LinkedList <E> implements Iterable<E>  {
 		//reverse the linkedlist 
 		Node<E> previous, curr, nextNode; 
 		previous = null; 
-		curr = head.next; 
+		curr = head; 
 		
 		if(size()<=1){
 			//do nothing
 			}else{
-				nextNode = head.next.next;  
+				nextNode = head.next;  
 				
 				while(nextNode != null){
 					curr.next = previous; 
@@ -233,17 +236,16 @@ public class LinkedList <E> implements Iterable<E>  {
 				//relink last node of the list.
 				
 				curr.next = previous; 
-				head.next = curr; 
+				head = curr; 
 				
 			}
 		}
 	
 	public LinkedList<E> secondHalf(){
-		//split a LinkedList in two equal size, and return the second half of the original 
-		//LinkedList. 
+		//return the second half of the original LinkedList. 
 		int middle = size()/2;
 		LinkedList<E> secondHalf = new LinkedList<E>(); 
-		Node<E> temp = head.next; 
+		Node<E> temp = head; 
 		int count = 0; 
 		//move head to the middle of the list. 
 		while(count != middle){
