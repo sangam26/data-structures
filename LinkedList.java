@@ -9,8 +9,7 @@ public class LinkedList <E> implements Iterable<E>  {
 	private Node<E> head; 
 	
 	public LinkedList(){
-		//default class constructor 
-		head= new Node<E> (null); 
+		//default class constructor  
 		counter=0; 
 	}
 	
@@ -29,10 +28,11 @@ public class LinkedList <E> implements Iterable<E>  {
 	public void add(E data){
 		//add a node to the end of the list 
 		Node<E> newNode = new Node(data); 
-		Node<E> temp = head;  
+		Node<E> temp = head; 
+		  
 		if(head==null){
 			head = newNode; 
-		} else{
+		}else{
 		while (temp.next != null){
 			temp = temp.next; 
 		}
@@ -52,12 +52,23 @@ public class LinkedList <E> implements Iterable<E>  {
 			hasBeenAdded = false; 
 		}else{
 			if(temp.next != null){
-				for(int i=0; i<index; i++){
+				//loop until index-1 because we want to find the node just before we want
+				//to add at. 
+				for(int i=0; i<index-1; i++){
 					temp = temp.next; 
 				}
 			}
-			newNode.next = temp.next; 
-			temp.next = newNode; 
+			//two cases. When inserting at the beginning of the list, the head
+			//has to be re linked. 
+			if(index==0){
+				newNode.next = temp; 
+				head = newNode; 
+			}else{
+				newNode.next = temp.next; 
+				temp.next = newNode; 
+			}
+			
+			
 			incrementCount(); 
 		}
 		return hasBeenAdded; 
@@ -170,7 +181,7 @@ public class LinkedList <E> implements Iterable<E>  {
 	public boolean removeAt(int index){
 		//remove Node from the specified index.  
 		Node<E> previous = head; 
-		Node<E> temp = null; 
+		Node<E> temp; 
 		int currentIndex = 0; 
 		boolean hasBeenRemoved = true; 
 		
@@ -181,13 +192,19 @@ public class LinkedList <E> implements Iterable<E>  {
 		if(size()==0){
 			//do nothing if empty list 
 		}else{
-			temp = head.next; 
-			while(index != currentIndex){
+			temp = head.next;
+			while(currentIndex < index-1){
 				previous = previous.next; 
 				temp = temp.next; 
 				currentIndex++; 
 			}
-			previous.next = temp.next;
+			//two cases. when it's removed from the beginning of the list, 
+			//the head pointer has to be re linked. 
+			if(index==0){
+				head = head.next; 
+			}else{
+				previous.next = temp.next;
+			}
 			decreaseCount(); 
 		}
 		
@@ -290,15 +307,15 @@ public class LinkedList <E> implements Iterable<E>  {
 	}
 	
 	public E get(int index){
-		//deal when index input is negative
+		//deal with outbound index
 		Node<E> temp = head; 
-		if (index<0 || index>size()){
+		if (index>size()){
 			System.out.println("index out of bound"); 
 			return null; 
 		}
 		//move header when there is only elements in the list
-		if(size()>=0){
-			for(int i=0; i<=index; i++){
+		if(size()>0){
+			for(int i=0; i<index; i++){
 				temp = temp.next; 
 			}
 			return  temp.getData(); 
