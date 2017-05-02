@@ -370,7 +370,9 @@ public class LinkedList <E> implements Iterable<E>  {
 		}
 		
 		public E next(){
-			if (!hasNext()) throw new NoSuchElementException(); 
+			if (!hasNext()){
+				return null; 
+			}
 			E next = nextNode.data; 
 			nextNode = nextNode.next; 
 			return next; 
