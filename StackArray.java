@@ -2,8 +2,7 @@ package linear;
 import java.util.*; 
 
 public class StackArray <E> {
-	//fields for the Stack data structure. 
-	//this implementation is based on a fixed array of size 15, and every time 
+	//this implementation is based on a fixed array of size 5, and every time 
 	//it reaches capacity it creates a new array of type E double the initial size
 	//and copy the old values to the new ones. 
 	private int capacity = 5; 
@@ -59,6 +58,8 @@ public class StackArray <E> {
 	}
 	
 	public int minElement(){ 
+		//keep track of the min value by comparing current min to the value being 
+		//pushed on the stack. 
 		if(isEmpty()){
 			return Integer.MAX_VALUE; 
 		}else if(numElement==1){
