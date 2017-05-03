@@ -4,31 +4,30 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class StackLinkedListTesting {
-	StackLinkedList<Character> myStack = new StackLinkedList<Character>(); 
+	StackLinkedList<Integer> numStack = new StackLinkedList<Integer>();
 	
-	@Before public void setup(){
-		myStack.push('s');
-		myStack.push('a');
-		myStack.push('n');
-		myStack.push('g');
-		myStack.push('a');
-		myStack.push('m');
+	@Before public void setup(){	
+		numStack.push(4);
+		numStack.push(5);
+		numStack.push(1);
+		numStack.push(6);
 	}
 	
 	@Test 
 	public void isPopped(){
-		char aChar1 = myStack.pop(); 
-		char aChar2 = myStack.pop();
-		char aChar3 = myStack.pop();
+		int num1 = numStack.pop(); 
+		int num2 = numStack.pop(); 
+		int num3 = numStack.pop(); 
 		
-		assertEquals('m', aChar1); 
-		assertEquals('a', aChar2);
-		assertEquals('g', aChar3);
-		
-		myStack.pop(); 
-		myStack.pop(); 
-		myStack.pop();
-		assertEquals(true, myStack.isEmpty()); 
+		assertEquals(6, num1); 
+		assertEquals(1, num2);
+		assertEquals(5, num3);
+	}
+	
+	@Test 
+	public void minElement(){
+		int min = numStack.minElement(); 
+		assertEquals(1, min); 
 	}
 	
 

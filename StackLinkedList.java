@@ -3,6 +3,7 @@ package linear;
 public class StackLinkedList<E> {
 	private int size; 
 	private Node<E> top; 
+	private int min =0; 
 	
 	public StackLinkedList(){
 		size=0; 
@@ -27,6 +28,7 @@ public class StackLinkedList<E> {
 			aNode.next = top; 
 			top = aNode; 
 		}
+		minElement(); 
 		size++; 
 	}
 	
@@ -36,6 +38,21 @@ public class StackLinkedList<E> {
 	
 	public E peek(){ 
 		return top.data; 
+	}
+	
+	public int minElement(){
+		//return minimum integer from the Stack. 
+		if(isEmpty()){
+			return min = Integer.MAX_VALUE; 
+		}
+		else if(size==1){
+			min = (int) top.data; 
+		}else{
+			if(min > (int) top.data){
+				min = (int) top.data; 
+			}
+		}
+		return min; 
 	}
 	
 	private static class Node<E>{
