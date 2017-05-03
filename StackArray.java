@@ -6,12 +6,14 @@ public class StackArray <E> {
 	//this implementation is based on a fixed array of size 15, and every time 
 	//it reaches capacity it creates a new array of type E double the initial size
 	//and copy the old values to the new ones. 
-	private int size = 5; 
+	private int capacity = 5; 
+	private int numElement = 0; 
 	private E[] array; 
-	private int top = -1; 
+	private int min=0; 
+	private int top = -1;  
 	
 	public StackArray(){
-		array = (E[]) new Object[size]; 
+		array = (E[]) new Object[capacity]; 
 	}
 	
 	public E pop() {
@@ -22,13 +24,15 @@ public class StackArray <E> {
 			E item = peek(); 
 			array[top] = null; 
 			top--; 
+			numElement--; 
+			minElement(); 
 			return item; 
 		}
 	}
 
 	public void push(E item) {
 		//method that insert element into top of the stack
-		if(size-1 == top){
+		if(capacity-1 == top){
 			//when the array is already full. resize array, and put element
 			//on top 
 			resize(); 
@@ -36,8 +40,10 @@ public class StackArray <E> {
 			top = top+1; 
 		}else{
 			array[top+1]=item; 
-			top = top+1; 
-		}
+			top = top+1;  
+		}  
+		numElement++; 
+		minElement(); 
 	}
 
 	
@@ -52,12 +58,27 @@ public class StackArray <E> {
 		return item; 
 	}
 	
+	public int minElement(){ 
+		if(isEmpty()){
+			return Integer.MAX_VALUE; 
+		}else if(numElement==1){
+			min = (int) array[top]; 
+		}
+		else{
+			if(min > (int) array[top]){
+				min = (int) array[top]; 
+			}
+		}
+		return min; 
+		}
+
 	private void resize(){
-		E[] resizedArray = (E[]) new Object[size*2]; 
+		//double size of array when original array is full. 
+		E[] resizedArray = (E[]) new Object[capacity*2]; 
 		for(int i=0; i<array.length; i++){
 			resizedArray[i]=array[i]; 
 		}
 		array = resizedArray; 
-		size = size*2; 
+		capacity = capacity*2; 
 	}
 }

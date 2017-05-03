@@ -4,25 +4,36 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class StackTesting {
-	StackArray<Character> myStack = new StackArray<Character>(); 
+	StackArray<Integer> myStack = new StackArray<Integer>(); 
+	StackArray<Integer> emptyStack = new StackArray<Integer>();
 	@Before public void setup(){
-		myStack.push('s');
-		myStack.push('a');
-		myStack.push('n');
-		myStack.push('g');
-		myStack.push('a');
-		myStack.push('m');
+		myStack.push(3);
+		myStack.push(5);
+		myStack.push(9);
+		myStack.push(94);
+		myStack.push(5);
+		myStack.push(11);
 	}
 	
 	
 	@Test 
 	public void isPopped(){
-		char aChar1 = myStack.pop(); 
-		char aChar2 = myStack.pop();
-		char aChar3 = myStack.pop();
+		int num1 = myStack.pop(); 
+		int num2 = myStack.pop();
+		int num3 = myStack.pop();
 		
-		assertEquals('m', aChar1); 
-		assertEquals('a', aChar2);
-		assertEquals('g', aChar3);
+		assertEquals(11, num1); 
+		assertEquals(5, num2);
+		assertEquals(94, num3);
+	}
+	
+	@Test
+	public void minElement(){
+		int min = myStack.minElement();
+		int min2 = emptyStack.minElement(); 
+		
+		assertEquals(3, min); 
+		assertEquals(Integer.MAX_VALUE, min2); 
+		
 	}
 }
